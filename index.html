@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>神話図鑑</title>
+<style>
+  :root {
+    --bg: #f6f1e7; --card: #fffdf8; --ink: #2b2118; --sub: #6d5d4b; --line: #ded2bd;
+    --accent: #8c3b2a; --bar: #e6dcc8; --pw: #1f5f4a; --shadow: rgba(60, 40, 20, .12);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16130f; --card: #211c16; --ink: #efe6d6; --sub: #b3a48e; --line: #3a3126;
+      --accent: #e0896f; --bar: #3a3126; --pw: #7fd3b0; --shadow: rgba(0, 0, 0, .4);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.7 system-ui, "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif; }
+  main { max-width: 720px; margin: 0 auto; padding: 20px 16px 48px; }
+  h1 { font-size: 1.5rem; margin: 8px 0 4px; letter-spacing: .08em; }
+  .lead { color: var(--sub); margin: 0 0 16px; font-size: .9rem; }
+  #summary { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; margin: 0 0 16px; }
+  #summary .big { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+  #summary .sid { display: block; color: var(--sub); font-size: .8rem; }
+  #error { background: #fde8e4; color: #7a1e12; border: 1px solid #e3a79d; border-radius: 12px; padding: 14px 16px; margin: 0 0 16px; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) #error { background: #3b1b16; color: #f3b9ad; border-color: #7a3a2f; } }
+  #intro { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+  #intro textarea { width: 100%; min-height: 4.5em; font: inherit; font-size: .85rem; padding: 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+  #intro button { margin-top: 8px; font: inherit; padding: 8px 18px; border-radius: 999px; border: 0; background: var(--accent); color: #fff; }
+  .card { display: flex; gap: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin: 0 0 14px; box-shadow: 0 1px 4px var(--shadow); }
+  .pic { flex: 0 0 96px; width: 96px; height: 120px; border-radius: 10px; overflow: hidden; background: var(--bar); display: flex; align-items: center; justify-content: center; }
+  .pic img { width: 100%; height: 100%; object-fit: cover; image-rendering: auto; }
+  .pic.noimg::after { content: "？"; font-size: 2.4rem; color: var(--sub); opacity: .5; }
+  .body { flex: 1 1 auto; min-width: 0; }
+  .body h2 { font-size: 1.15rem; margin: 0; line-height: 1.4; }
+  .kami { margin: 0 0 6px; color: var(--accent); font-size: .9rem; }
+  .note { margin: 4px 0 6px; color: var(--sub); font-size: .85rem; }
+  .progress { display: flex; align-items: center; gap: 10px; margin: 6px 0 4px; }
+  .bar { flex: 1 1 auto; height: 8px; border-radius: 4px; background: var(--bar); overflow: hidden; }
+  .fill { height: 100%; background: var(--accent); }
+  .count { font-size: .85rem; color: var(--sub); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .sec h3 { font-size: .8rem; margin: 10px 0 0; color: var(--sub); letter-spacing: .05em; }
+  .sec p { margin: 2px 0 0; font-size: .92rem; overflow-wrap: anywhere; }
+  .pw { margin-top: 12px; padding: 10px 12px; border-radius: 10px; border: 2px dashed var(--pw); display: flex; flex-direction: column; gap: 2px; }
+  .pwlabel { font-size: .75rem; color: var(--sub); }
+  .pwcode { font: 700 1.6rem/1.2 ui-monospace, Menlo, Consolas, monospace; letter-spacing: .12em; color: var(--pw); user-select: all; }
+  .pwhelp { font-size: .78rem; color: var(--sub); }
+  @media (max-width: 320px) { .card { flex-direction: column; } .pic { width: 100%; flex-basis: auto; height: 140px; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>神話図鑑</h1>
+  <p class="lead">ゲームの「ずかん」で出したQRを読み取ると、出会った神さまだけが載ります。</p>
+  <div id="error" role="alert" hidden></div>
+  <section id="intro" hidden>
+    <p>ゲームでセーブしたあと「ずかん → QR」を選び、スマホのカメラでQRコードを読み取ってください。</p>
+    <form id="paste-form">
+      <label for="paste">QRのURLをここに貼り付けて開くこともできます</label>
+      <textarea id="paste" placeholder="https://…#…"></textarea>
+      <button type="submit">ひらく</button>
+    </form>
+  </section>
+  <div id="summary" hidden></div>
+  <section id="dex" hidden></section>
+</main>
+<script src="dexlib.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
