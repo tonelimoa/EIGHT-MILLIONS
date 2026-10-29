@@ -79,7 +79,7 @@
       }
     };
     im.onerror = function () { box.remove(); };
-    im.src = 'img/dot/' + id + '.png';
+    im.src = 'img/dot/' + id + '.png?v=6';   // 絵を差し替えたら数字を上げる(古い絵がキャッシュに残らないように)
     return box;
   }
 
