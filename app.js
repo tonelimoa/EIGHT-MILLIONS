@@ -55,11 +55,14 @@
     box.appendChild(el('div', 'dotcap', UI.dot_label || ''));
     var im = new Image();
     im.onload = function () {
-      var fw = (im.height === 48 || im.height === 64) ? 48 : im.width;     // 1コマの幅
-      if (im.height === 48 && im.width % 48 !== 0 && im.width % 64 === 0) fw = 64;   // 幅64のコマ(くえびこ・みくまり)
+      var fw = im.width;                                                  // 1コマの幅: 高さ48/64のシートは、幅が割り切れるコマ幅(48→56→64)
+      if (im.height === 48 || im.height === 64) {
+        fw = 48;
+        if (im.width % 48 !== 0) fw = (im.width % 56 === 0) ? 56 : 64;
+      }
       var frames = Math.max(1, Math.round(im.width / fw));
       var s = fw <= 64 ? 2 : 3;
-      if (fw * s > 96 && box.parentNode) box.parentNode.classList.add('wide');   // 幅64のコマは、左の欄を広げて収める                                          // 整数倍(96px幅)
+      if (fw * s > 96 && box.parentNode) box.parentNode.classList.add('wide');   // 整数倍で96pxを超えるコマ(56/64幅)は、左の欄を広げて収める
       dot.style.width = fw * s + 'px';
       dot.style.height = im.height * s + 'px';
       dot.style.backgroundImage = 'url(' + im.src + ')';
