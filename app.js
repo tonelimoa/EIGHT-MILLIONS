@@ -58,7 +58,8 @@
       var fw = (im.height === 48 || im.height === 64) ? 48 : im.width;     // 1コマの幅
       if (im.height === 48 && im.width % 48 !== 0 && im.width % 64 === 0) fw = 64;   // 幅64のコマ(くえびこ・みくまり)
       var frames = Math.max(1, Math.round(im.width / fw));
-      var s = fw <= 64 ? 2 : 3;                                          // 整数倍(96px幅)
+      var s = fw <= 64 ? 2 : 3;
+      if (fw * s > 96 && box.parentNode) box.parentNode.classList.add('wide');   // 幅64のコマは、左の欄を広げて収める                                          // 整数倍(96px幅)
       dot.style.width = fw * s + 'px';
       dot.style.height = im.height * s + 'px';
       dot.style.backgroundImage = 'url(' + im.src + ')';

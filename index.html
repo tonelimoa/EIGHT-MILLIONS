@@ -32,6 +32,8 @@
   #intro button { margin-top: 8px; font: inherit; padding: 8px 18px; border-radius: 999px; border: 0; background: var(--accent); color: #fff; }
   .card { display: flex; gap: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px; margin: 0 0 14px; box-shadow: 0 1px 4px var(--shadow); }
   .left { flex: 0 0 96px; width: 96px; display: flex; flex-direction: column; gap: 8px; }
+  .left.wide { flex-basis: 128px; width: 128px; }
+  .left.wide .pic { width: 128px; height: 160px; }
   .pic { flex: 0 0 auto; width: 96px; height: 120px; border-radius: 10px; overflow: hidden; background: var(--bar); display: flex; align-items: center; justify-content: center; }
   .pic img { width: 100%; height: 100%; object-fit: cover; image-rendering: auto; }
   .pic.noimg::after { content: "？"; font-size: 2.4rem; color: var(--sub); opacity: .5; }
@@ -87,6 +89,6 @@
 </main>
 <script src="ui.js?v=3"></script>
 <script src="dexlib.js?v=3"></script>
-<script src="app.js?v=4"></script>
+<script src="app.js?v=5"></script>
 </body>
 </html>
